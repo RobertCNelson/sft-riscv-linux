@@ -4,7 +4,7 @@ ARCH=$(uname -m)
 
 config="defconfig"
 
-build_prefix="-riscv64-x"
+build_prefix="-sft-riscv-x"
 branch_prefix="v"
 branch_postfix=".x"
 
@@ -41,11 +41,11 @@ DEBARCH=riscv64
 toolchain="gcc_10_riscv64"
 
 #Kernel
-KERNEL_REL=5.12
+KERNEL_REL=5.10
 KERNEL_TAG=${KERNEL_REL}
 kernel_rt=".x-rty"
 #Kernel Build
-BUILD=${build_prefix}8
+BUILD=${build_prefix}0
 
 #v5.X-rcX + upto SHA
 #prev_KERNEL_SHA=""
@@ -55,4 +55,8 @@ BUILD=${build_prefix}8
 BRANCH="${branch_prefix}${KERNEL_REL}${branch_postfix}"
 
 DISTRO=xross
+#
+
+git_old_commit="c0d5972e17c2e842f3db4680e927f00e0bef8f2f"
+git_new_commit="c0d5972e17c2e842f3db4680e927f00e0bef8f2f"
 #

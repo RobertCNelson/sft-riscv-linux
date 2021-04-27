@@ -33,7 +33,7 @@ git_bin=$(which git)
 #git: --no-edit
 
 git="${git_bin} am"
-#git_patchset=""
+git_patchset="https://github.com/starfive-tech/sft-riscv-linux-5.10"
 #git_opts
 
 if [ "${RUN_BISECT}" ] ; then
@@ -97,10 +97,27 @@ cherrypick () {
 }
 
 external_git () {
-	git_tag=""
-	echo "pulling: ${git_tag}"
+	git_tag="starfive"
+	echo "pulling: [${git_patchset} ${git_tag}]"
 	${git_bin} pull --no-edit ${git_patchset} ${git_tag}
-	${git_bin} describe
+	top_of_branch=$(${git_bin} describe)
+	if [ ! "x${git_new_commit}" = "x" ] ; then
+		${git_bin} checkout master -f
+		test_for_branch=$(${git_bin} branch --list "v${KERNEL_TAG}${BUILD}")
+		if [ "x${test_for_branch}" != "x" ] ; then
+			${git_bin} branch "v${KERNEL_TAG}${BUILD}" -D
+		fi
+		${git_bin} checkout ${git_new_commit} -b v${KERNEL_TAG}${BUILD} -f
+		current_git=$(${git_bin} describe)
+		echo "${current_git}"
+
+		if [ ! "x${top_of_branch}" = "x${current_git}" ] ; then
+			echo "INFO: external git repo has updates..."
+		fi
+	else
+		echo "${top_of_branch}"
+	fi
+	#exit 2
 }
 
 rt_cleanup () {
@@ -201,7 +218,7 @@ local_patch () {
 	${git} "${DIR}/patches/dir/0001-patch.patch"
 }
 
-#external_git
+external_git
 #rt
 #beagleboard_dtbs
 #local_patch
@@ -288,6 +305,8 @@ reverts () {
 #reverts
 #drivers
 #soc
+
+dir 'rcnee_hacks'
 
 packaging () {
 	#do_backport="enable"
