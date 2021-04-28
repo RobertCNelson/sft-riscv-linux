@@ -306,6 +306,7 @@ reverts () {
 #drivers
 #soc
 
+dir 'dts'
 dir 'rcnee_hacks'
 
 packaging () {

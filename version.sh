@@ -45,7 +45,7 @@ KERNEL_REL=5.10
 KERNEL_TAG=${KERNEL_REL}
 kernel_rt=".x-rty"
 #Kernel Build
-BUILD=${build_prefix}0
+BUILD=${build_prefix}0.1
 
 #v5.X-rcX + upto SHA
 #prev_KERNEL_SHA=""
@@ -57,6 +57,7 @@ BRANCH="${branch_prefix}${KERNEL_REL}${branch_postfix}"
 DISTRO=xross
 #
 
+#https://github.com/starfive-tech/sft-riscv-linux-5.10/commits/starfive
 git_old_commit="c0d5972e17c2e842f3db4680e927f00e0bef8f2f"
 git_new_commit="c0d5972e17c2e842f3db4680e927f00e0bef8f2f"
 #
