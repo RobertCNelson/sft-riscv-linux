@@ -1,15 +1,15 @@
-From 060adc80bd6091ec66d0c36f2c03e01486c804f0 Mon Sep 17 00:00:00 2001
+From 387225cf1ca68d1b0422d853788fd63c99d2397a Mon Sep 17 00:00:00 2001
 From: Robert Nelson <robertcnelson@gmail.com>
-Date: Fri, 30 Apr 2021 11:56:39 -0500
+Date: Fri, 30 Apr 2021 14:21:18 -0500
 Subject: [PATCH] add initial beaglev dts (from u-boot)
 
 Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
 ---
  arch/riscv/boot/dts/Makefile                  |   1 +
  arch/riscv/boot/dts/starfive/Makefile         |   2 +
- .../starfive/starfive_vic7100_beagle_v.dts    | 600 ++++++++++++++++++
+ .../starfive/starfive_vic7100_beagle_v.dts    | 602 ++++++++++++++++++
  .../dts/starfive/starfive_vic7100_clk.dtsi    | 109 ++++
- 4 files changed, 712 insertions(+)
+ 4 files changed, 714 insertions(+)
  create mode 100644 arch/riscv/boot/dts/starfive/Makefile
  create mode 100644 arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts
  create mode 100644 arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
@@ -35,12 +35,13 @@ index 000000000000..0e0778374335
 +dtb-$(CONFIG_SOC_STARFIVE_VIC7100) += starfive_vic7100_beagle_v.dtb
 diff --git a/arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts b/arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts
 new file mode 100644
-index 000000000000..2c30ea1ed621
+index 000000000000..e5f1a7b7c3f2
 --- /dev/null
 +++ b/arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts
-@@ -0,0 +1,600 @@
+@@ -0,0 +1,602 @@
 +/dts-v1/;
 +#include "starfive_vic7100_clk.dtsi"
++#include <dt-bindings/gpio/gpio.h>
 +
 +/ {
 +	#address-cells = <2>;
@@ -57,6 +58,7 @@ index 000000000000..2c30ea1ed621
 +	aliases {
 +		spi0="/soc/qspi@11860000";
 +		mshc0="/soc/sdio0@10000000";
++		mshc1="/soc/sdio1@10010000";
 +		usb0="/soc/usb@104c0000";
 +	};
 +	cpus: cpus {
@@ -143,7 +145,7 @@ index 000000000000..2c30ea1ed621
 +			linux,cma-default;
 +		};
 +		jpu_reserved: framebuffer@c9000000 {
-+			reg = <0x0 0xc9000000 0x0 0x2000000>;
++			reg = <0x0 0xc9000000 0x0 0x4000000>;
 +		};
 +		nvdla_reserved:framebuffer@d0000000{
 +			reg = <0x0 0xd0000000 0x0 0x28000000>;
@@ -165,7 +167,7 @@ index 000000000000..2c30ea1ed621
 +			cache-unified;
 +			compatible = "sifive,fu540-c000-ccache", "starfive,ccache0", "cache";
 +			interrupt-parent = <&plic>;
-+			interrupts = <1 2 3>;
++			interrupts = <128 131 129 130>;
 +			/*next-level-cache = <&L40 &L36>;*/
 +			reg = <0x0 0x2010000 0x0 0x1000 0x0 0x8000000 0x0 0x2000000>;
 +			reg-names = "control", "sideband";
@@ -335,8 +337,8 @@ index 000000000000..2c30ea1ed621
 +			reg = <0x0 0x118b0000 0x0 0x10000>;
 +			interrupt-parent = <&plic>;
 +			interrupts = <96>;
-+			/*clocks = <&hfclk>; */
-+			clock-frequency = <1000000>;
++			clocks = <49500000>;
++			clock-frequency = <100000>;
 +			i2c-sda-hold-time-ns = <300>;
 +			i2c-sda-falling-time-ns = <500>;
 +			i2c-scl-falling-time-ns = <500>;
@@ -632,11 +634,11 @@ index 000000000000..2c30ea1ed621
 +			interrupts = <122>;
 +			status = "okay";
 +		};
-+		//otp:otp@11810000{
-+		//	compatible = "starfive,fu740-otp";
-+		//	reg = <0x0 0x11810000 0x0 0x10000>;
-+		//	fuse-count = <0x200>;
-+		//};
++		otp:otp@11810000{
++			compatible = "starfive,fu740-otp";
++			reg = <0x0 0x11810000 0x0 0x10000>;
++			fuse-count = <0x200>;
++		};
 +	};
 +};
 diff --git a/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi b/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
