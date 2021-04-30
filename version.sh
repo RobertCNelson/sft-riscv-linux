@@ -2,7 +2,7 @@
 #
 ARCH=$(uname -m)
 
-config="defconfig"
+config="starfive_vic7100_evb_sd_net_fedora_defconfig"
 
 build_prefix="-sft-riscv-x"
 branch_prefix="v"
@@ -45,7 +45,7 @@ KERNEL_REL=5.10
 KERNEL_TAG=${KERNEL_REL}
 kernel_rt=".x-rty"
 #Kernel Build
-BUILD=${build_prefix}2
+BUILD=${build_prefix}2.1
 
 #v5.X-rcX + upto SHA
 #prev_KERNEL_SHA=""
@@ -57,7 +57,7 @@ BRANCH="${branch_prefix}${KERNEL_REL}${branch_postfix}"
 DISTRO=xross
 #
 
-#https://github.com/starfive-tech/sft-riscv-linux-5.10/commits/starfive
-git_old_commit="c0d5972e17c2e842f3db4680e927f00e0bef8f2f"
-git_new_commit="c0d5972e17c2e842f3db4680e927f00e0bef8f2f"
+#https://github.com/starfive-tech/linux/commits/Fedora
+git_old_commit="710cf052d6abda73584481d920b4b6befc7240ea"
+git_new_commit="710cf052d6abda73584481d920b4b6befc7240ea"
 #

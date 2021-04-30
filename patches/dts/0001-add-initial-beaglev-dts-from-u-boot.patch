@@ -1,18 +1,18 @@
-From 51aeafdc167fcb8501629786eb07d57fe94f34eb Mon Sep 17 00:00:00 2001
+From 060adc80bd6091ec66d0c36f2c03e01486c804f0 Mon Sep 17 00:00:00 2001
 From: Robert Nelson <robertcnelson@gmail.com>
-Date: Wed, 28 Apr 2021 11:47:33 -0500
+Date: Fri, 30 Apr 2021 11:56:39 -0500
 Subject: [PATCH] add initial beaglev dts (from u-boot)
 
 Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
 ---
  arch/riscv/boot/dts/Makefile                  |   1 +
  arch/riscv/boot/dts/starfive/Makefile         |   2 +
- .../dts/starfive/starfive_vic7100_clk.dtsi    |  88 +++
- .../dts/starfive/starfive_vic7100_evb.dts     | 533 ++++++++++++++++++
- 4 files changed, 624 insertions(+)
+ .../starfive/starfive_vic7100_beagle_v.dts    | 600 ++++++++++++++++++
+ .../dts/starfive/starfive_vic7100_clk.dtsi    | 109 ++++
+ 4 files changed, 712 insertions(+)
  create mode 100644 arch/riscv/boot/dts/starfive/Makefile
+ create mode 100644 arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts
  create mode 100644 arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
- create mode 100644 arch/riscv/boot/dts/starfive/starfive_vic7100_evb.dts
 
 diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
 index ca1f8cbd78c0..5dac8c8b681e 100644
@@ -27,112 +27,18 @@ index ca1f8cbd78c0..5dac8c8b681e 100644
  obj-$(CONFIG_BUILTIN_DTB) := $(addsuffix /, $(subdir-y))
 diff --git a/arch/riscv/boot/dts/starfive/Makefile b/arch/riscv/boot/dts/starfive/Makefile
 new file mode 100644
-index 000000000000..f7191a08c393
+index 000000000000..0e0778374335
 --- /dev/null
 +++ b/arch/riscv/boot/dts/starfive/Makefile
 @@ -0,0 +1,2 @@
 +# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_SOC_STARFIVE_VIC7100) += starfive_vic7100_evb.dtb
-diff --git a/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi b/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
++dtb-$(CONFIG_SOC_STARFIVE_VIC7100) += starfive_vic7100_beagle_v.dtb
+diff --git a/arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts b/arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts
 new file mode 100644
-index 000000000000..8689e39d5b59
+index 000000000000..2c30ea1ed621
 --- /dev/null
-+++ b/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
-@@ -0,0 +1,88 @@
-+/ {
-+	hfclk: hfclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <25000000>;
-+		clock-output-names = "hfclk";
-+	};
-+	rtcclk: rtcclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <6250000>;
-+		clock-output-names = "rtcclk";
-+	};
-+	axiclk: axiclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <500000000>;
-+		clock-output-names = "axiclk";
-+	};
-+
-+	ahb0clk: ahb0clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <250000000>;
-+	};
-+	ahb2clk: ahb2clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <125000000>;
-+	};
-+	apb1clk: apb1clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <125000000>;
-+	};
-+	apb2clk: apb2clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <125000000>;
-+	};
-+	jpuclk: jpuclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <333333333>;
-+	};
-+	vpuclk: vpuclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <400000000>;
-+	};
-+	gmacclk: gmacclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <25000000>;
-+	};
-+	qspi_clk: qspi-clk@0 {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <50000000>;
-+	};
-+	uartclk: uartclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <100000000>;
-+	};
-+	hs_uartclk: hs_uartclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <74250000>;
-+	};
-+	dwmmc_biuclk: dwmmc_biuclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <100000000>;
-+	};
-+/*
-+	dwmmc_ciuclk: dwmmc_ciuclk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <100000000>;
-+	};
-+*/
-+	pwmclk: pwmclk {
-+            #clock-cells = <0>;
-+            compatible = "fixed-clock";
-+            clock-frequency = <125000000>;
-+       };
-+};
-diff --git a/arch/riscv/boot/dts/starfive/starfive_vic7100_evb.dts b/arch/riscv/boot/dts/starfive/starfive_vic7100_evb.dts
-new file mode 100644
-index 000000000000..c3bdcca64096
---- /dev/null
-+++ b/arch/riscv/boot/dts/starfive/starfive_vic7100_evb.dts
-@@ -0,0 +1,533 @@
++++ b/arch/riscv/boot/dts/starfive/starfive_vic7100_beagle_v.dts
+@@ -0,0 +1,600 @@
 +/dts-v1/;
 +#include "starfive_vic7100_clk.dtsi"
 +
@@ -303,7 +209,7 @@ index 000000000000..c3bdcca64096
 +		};
 +
 +		uart3: serial@12440000 {
-+			compatible = "snps,dw-apb-uart";
++			compatible = "snps,dw-apb-uart", "starfive,uart0";
 +			interrupt-parent = <&plic>;
 +			interrupts = <73>;
 +			reg = <0x0 0x12440000 0x0 0x10000>;
@@ -339,7 +245,7 @@ index 000000000000..c3bdcca64096
 +			clock-names = "baudclk","apb_pclk";
 +			current-clock = <74250000>;
 +			current-speed = <115200>;
-+			status = "okay";
++			status = "disabled";
 +		};
 +		uart0: hs_serial@11870000 {
 +			compatible = "snps,dw-apb-uart";
@@ -400,7 +306,7 @@ index 000000000000..c3bdcca64096
 +					"peripheral";
 +			phy-names = "cdns3,usb3-phy", "cnds3,usb2-phy";
 +			status = "okay";
-+ 		};
++		};
 +
 +
 +		gpio: gpio@11910000 {
@@ -412,9 +318,19 @@ index 000000000000..c3bdcca64096
 +			interrupt-controller;
 +			#gpio-cells = <2>;
 +		};
++		//gpiorst:gpio-restart {
++		//	compatible = "gpio-restart";
++		//	gpios = <&gpio 63 GPIO_ACTIVE_HIGH>;
++		//};
++		//gpiopof:gpio-poweroff {
++		//	compatible = "gpio-poweroff";
++		//	gpios = <&gpio 63 GPIO_ACTIVE_HIGH>;
++		//};
++
 +		i2c0: i2c@118b0000 {
 +			#address-cells = <1>;
 +			#size-cells = <0>;
++			#clock-cells = <0>;
 +			compatible = "snps,designware-i2c";
 +			reg = <0x0 0x118b0000 0x0 0x10000>;
 +			interrupt-parent = <&plic>;
@@ -424,11 +340,25 @@ index 000000000000..c3bdcca64096
 +			i2c-sda-hold-time-ns = <300>;
 +			i2c-sda-falling-time-ns = <500>;
 +			i2c-scl-falling-time-ns = <500>;
++			scl-gpio = <&gpio 62 0>;
++			sda-gpio = <&gpio 61 0>;
++
++			tda998x@70 {
++				compatible = "nxp,tda998x";
++				reg = <0x70>;
++			};
++
++			imx219@10 {
++				compatible = "imx219";
++				reg = <0x10>;
++				reset-gpio = <&gpio 58 0>;
++			};
 +		};
 +
 +		i2c1: i2c@118c0000 {
 +			#address-cells = <1>;
 +			#size-cells = <0>;
++			#clock-cells = <0>;
 +			compatible = "snps,designware-i2c";
 +			reg = <0x0 0x118c0000 0x0 0x10000>;
 +			interrupt-parent = <&plic>;
@@ -438,11 +368,14 @@ index 000000000000..c3bdcca64096
 +			i2c-sda-hold-time-ns = <300>;
 +			i2c-sda-falling-time-ns = <100>;
 +			i2c-scl-falling-time-ns = <100>;
++			scl-gpio = <&gpio 47 0>;
++			sda-gpio = <&gpio 48 0>;
 +		};
 +
 +		i2c2: i2c@12450000 {
 +			#address-cells = <1>;
 +			#size-cells = <0>;
++			#clock-cells = <0>;
 +			compatible = "snps,designware-i2c";
 +			reg = <0x0 0x12450000 0x0 0x10000>;
 +			interrupt-parent = <&plic>;
@@ -452,13 +385,14 @@ index 000000000000..c3bdcca64096
 +			i2c-sda-hold-time-ns = <300>;
 +			i2c-sda-falling-time-ns = <500>;
 +			i2c-scl-falling-time-ns = <500>;
++			scl-gpio = <&gpio 60 0>;
++			sda-gpio = <&gpio 59 0>;
 +
 +			seeed_plane_i2c@45 {
 +				compatible = "seeed_panel";
 +				reg = <0x45>;
 +			};
 +		};
-+
 +
 +		trng: trng@118d0000 {
 +			compatible = "starfive,vic-rng";
@@ -469,7 +403,9 @@ index 000000000000..c3bdcca64096
 +		};
 +		crypto: crypto@100d0000 {
 +			compatible = "starfive,vic-sec";
-+			reg = <0x0 0x100d0000 0x0 0x20000>;
++			reg = <0x0 0x100d0000 0x0 0x20000>,
++			      <0x0 0x11800234 0x0 0xc>;
++			reg-names = "secmem","secclk";
 +			interrupt-parent = <&plic>;
 +			interrupts = <31>;
 +			clocks = <&hfclk>;
@@ -571,7 +507,7 @@ index 000000000000..c3bdcca64096
 +			nor_flash:nor-flash@0 {
 +				compatible = "spi-flash";
 +				reg=<0>;
-+				spi-max-frequency = <100000000>;
++				spi-max-frequency = <31250000>;
 +				page-size = <256>;
 +				block-size = <16>;
 +				cdns,read-delay = <4>;
@@ -582,7 +518,40 @@ index 000000000000..c3bdcca64096
 +				spi-tx-bus-width = <1>;
 +				spi-rx-bus-width = <1>;
 +			};
++			//nand_flash:nand-flash@1 {
++			//	compatible = "spi-flash-nand";
++			//	reg=<1>;
++			//	spi-max-frequency = <31250000>;
++			//	page-size = <2048>;
++			//	block-size = <17>;
++			//	cdns,read-delay = <4>;
++			//	cdns,tshsl-ns = <1>;
++			//	cdns,tsd2d-ns = <1>;
++			//	cdns,tchsh-ns = <1>;
++			//	cdns,tslch-ns = <1>;
++			//	spi-tx-bus-width = <1>;
++			//	spi-rx-bus-width = <1>;
++			//};
 +		};
++
++		spi2:spi2@12410000 {
++			compatible = "snps,dw-apb-ssi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupt-parent = <&plic>;
++			interrupts = <70>;
++			reg = <0x0 0x12410000 0x0 0x10000>;
++			clocks = <&spiclk>;
++			/*num-cs = <1>;
++			cs-gpios = <&gpio 0 0>;*/
++			spi_dev0: spi@0 {
++				compatible = "rohm,dh2228fv";
++				spi-max-frequency = <10000000>;
++				reg = <0>;
++				status = "okay";
++			};
++		};
++
 +		xrp@0 {
 +		compatible = "cdns,xrp";
 +		reg = <0x0 0xf0000000 0x0 0x01ffffff
@@ -612,24 +581,16 @@ index 000000000000..c3bdcca64096
 +			clocks = <&dwmmc_biuclk>;
 +			clock-names = "biu";
 +			clock-frequency = <100000000>;
-+			max-frequency = <50000000>;
++			max-frequency = <10000000>;
 +			fifo-depth = <32>;
 +			card-detect-delay = <300>;
 +			fifo-watermark-aligned;
 +			data-addr = <0>;
 +			bus-width = <4>;
 +			cap-sd-highspeed;
-+			/*broken-cd;*/
-+			cap-sdio-irq;
-+			cap-mmc-hw-reset;
-+			non-removable;
-+			enable-sdio-wakeup;
-+			keep-power-in-suspend;
-+			/*cap-power-off-card;*/
-+			cap-mmc-highspeed;
-+			/*fixed-emmc-driver-type;*/
++			broken-cd;
++			no-sdio;
 +			post-power-on-delay-ms = <200>;
-+
 +		};
 +		sdio1:sdio1@10010000{
 +			compatible = "snps,dw-mshc";
@@ -639,7 +600,7 @@ index 000000000000..c3bdcca64096
 +			clocks = <&dwmmc_biuclk>;
 +			clock-names = "biu";
 +			clock-frequency = <100000000>;
-+			max-frequency = <26000000>;
++			max-frequency = <10000000>;
 +			fifo-depth = <32>;
 +			card-detect-delay = <300>;
 +			fifo-watermark-aligned;
@@ -656,7 +617,14 @@ index 000000000000..c3bdcca64096
 +			cap-mmc-highspeed;
 +			/*fixed-emmc-driver-type;*/
 +			post-power-on-delay-ms = <200>;
++			/*
++			bcmdhd_wlan: bcmdhd_wlan@1 {
++				compatible = "android,bcmdhd_wlan";
++				gpios = <&gpio 26 0>;
++			};
++			*/
 +		};
++
 +		sfc_tmp:tmpsensor@124A0000 {
 +			compatible = "sfc,tempsensor";
 +			reg = <0x0 0x124A0000 0x0 0x1000>;
@@ -664,7 +632,127 @@ index 000000000000..c3bdcca64096
 +			interrupts = <122>;
 +			status = "okay";
 +		};
++		//otp:otp@11810000{
++		//	compatible = "starfive,fu740-otp";
++		//	reg = <0x0 0x11810000 0x0 0x10000>;
++		//	fuse-count = <0x200>;
++		//};
 +	};
++};
+diff --git a/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi b/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
+new file mode 100644
+index 000000000000..f3d571420abb
+--- /dev/null
++++ b/arch/riscv/boot/dts/starfive/starfive_vic7100_clk.dtsi
+@@ -0,0 +1,109 @@
++/ {
++	hfclk: hfclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <25000000>;
++		clock-output-names = "hfclk";
++	};
++	rtcclk: rtcclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <6250000>;
++		clock-output-names = "rtcclk";
++	};
++	i2c0clk: i2c0clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <49500000>;
++		clock-output-names = "i2c0clk";
++	};
++
++	i2c2clk: i2c2clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <50000000>;
++		clock-output-names = "i2c2clk";
++	};
++
++	axiclk: axiclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <500000000>;
++		clock-output-names = "axiclk";
++	};
++
++	ahb0clk: ahb0clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <250000000>;
++	};
++	ahb2clk: ahb2clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <125000000>;
++	};
++	apb1clk: apb1clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <125000000>;
++	};
++	apb2clk: apb2clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <125000000>;
++	};
++	jpuclk: jpuclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <333333333>;
++	};
++	vpuclk: vpuclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <400000000>;
++	};
++	gmacclk: gmacclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <25000000>;
++	};
++	qspi_clk: qspi-clk@0 {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <50000000>;
++	};
++	uartclk: uartclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <100000000>;
++	};
++	hs_uartclk: hs_uartclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <74250000>;
++	};
++	dwmmc_biuclk: dwmmc_biuclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <100000000>;
++	};
++/*
++	dwmmc_ciuclk: dwmmc_ciuclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <100000000>;
++	};
++*/
++	spiclk: spiclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <50000000>;
++	};
++
++	pwmclk: pwmclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <125000000>;
++	};
++
 +};
 -- 
 2.30.2

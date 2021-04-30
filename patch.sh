@@ -33,7 +33,7 @@ git_bin=$(which git)
 #git: --no-edit
 
 git="${git_bin} am"
-git_patchset="https://github.com/starfive-tech/sft-riscv-linux-5.10"
+git_patchset="https://github.com/starfive-tech/linux"
 #git_opts
 
 if [ "${RUN_BISECT}" ] ; then
@@ -97,7 +97,7 @@ cherrypick () {
 }
 
 external_git () {
-	git_tag="starfive"
+	git_tag="Fedora"
 	echo "pulling: [${git_patchset} ${git_tag}]"
 	${git_bin} pull --no-edit ${git_patchset} ${git_tag}
 	top_of_branch=$(${git_bin} describe)
@@ -312,7 +312,7 @@ dir 'rcnee_hacks'
 packaging () {
 	#do_backport="enable"
 	if [ "x${do_backport}" = "xenable" ] ; then
-		backport_tag="v5.10.31"
+		backport_tag="v5.10.32"
 
 		subsystem="bindeb-pkg"
 		#regenerate="enable"
