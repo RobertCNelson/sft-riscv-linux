@@ -1,0 +1,47 @@
+From 2c345d249ef31056b8c4279f9153605b57b2b0ee Mon Sep 17 00:00:00 2001
+From: Maciej Pijanowski <maciej.pijanowski@3mdeb.com>
+Date: Wed, 5 May 2021 23:51:31 +0200
+Subject: [PATCH 4/4] riscv: configs: starfive: use MICREL instead of MARVELL
+ PHY
+
+Signed-off-by: Maciej Pijanowski <maciej.pijanowski@3mdeb.com>
+---
+ arch/riscv/configs/starfive_vic7100_evb_sd_net_defconfig     | 4 ++--
+ arch/riscv/configs/starfive_vic7100_evb_sd_net_usb_defconfig | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/riscv/configs/starfive_vic7100_evb_sd_net_defconfig b/arch/riscv/configs/starfive_vic7100_evb_sd_net_defconfig
+index 4487005fcb77..e8d267344aca 100644
+--- a/arch/riscv/configs/starfive_vic7100_evb_sd_net_defconfig
++++ b/arch/riscv/configs/starfive_vic7100_evb_sd_net_defconfig
+@@ -868,9 +868,9 @@ CONFIG_FIXED_PHY=y
+ # CONFIG_INTEL_XWAY_PHY is not set
+ # CONFIG_LSI_ET1011C_PHY is not set
+ # CONFIG_LXT_PHY is not set
+-CONFIG_MARVELL_PHY=y
++# CONFIG_MARVELL_PHY is not set
+ # CONFIG_MARVELL_10G_PHY is not set
+-# CONFIG_MICREL_PHY is not set
++CONFIG_MICREL_PHY=y
+ # CONFIG_MICROCHIP_PHY is not set
+ # CONFIG_MICROCHIP_T1_PHY is not set
+ # CONFIG_MICROSEMI_PHY is not set
+diff --git a/arch/riscv/configs/starfive_vic7100_evb_sd_net_usb_defconfig b/arch/riscv/configs/starfive_vic7100_evb_sd_net_usb_defconfig
+index 9ad4885ac499..81624cb28822 100644
+--- a/arch/riscv/configs/starfive_vic7100_evb_sd_net_usb_defconfig
++++ b/arch/riscv/configs/starfive_vic7100_evb_sd_net_usb_defconfig
+@@ -873,9 +873,9 @@ CONFIG_FIXED_PHY=y
+ # CONFIG_INTEL_XWAY_PHY is not set
+ # CONFIG_LSI_ET1011C_PHY is not set
+ # CONFIG_LXT_PHY is not set
+-CONFIG_MARVELL_PHY=y
++# CONFIG_MARVELL_PHY is not set
+ # CONFIG_MARVELL_10G_PHY is not set
+-# CONFIG_MICREL_PHY is not set
++CONFIG_MICREL_PHY=y
+ # CONFIG_MICROCHIP_PHY is not set
+ # CONFIG_MICROCHIP_T1_PHY is not set
+ # CONFIG_MICROSEMI_PHY is not set
+-- 
+2.30.2
+

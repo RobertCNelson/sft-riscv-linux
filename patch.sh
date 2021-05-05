@@ -305,8 +305,9 @@ reverts () {
 #reverts
 #drivers
 #soc
+dir '3mdeb/linux/'
 
-dir 'dts'
+#dir 'dts'
 dir 'rcnee_hacks'
 wget -c https://raw.githubusercontent.com/starfive-tech/u-boot/Fedora/arch/riscv/dts/starfive_vic7100_beagle_v.dts -P ../patches/
 wget -c https://raw.githubusercontent.com/starfive-tech/u-boot/Fedora/arch/riscv/dts/starfive_vic7100_clk.dtsi -P ../patches/
