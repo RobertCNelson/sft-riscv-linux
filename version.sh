@@ -4,7 +4,7 @@ ARCH=$(uname -m)
 
 config="starfive_vic7100_evb_sd_net_fedora_defconfig"
 
-build_prefix="-sft-riscv-x"
+build_prefix="-sft-riscv-r"
 branch_prefix="v"
 branch_postfix=".x"
 
